@@ -1,33 +1,28 @@
-import {Trash2} from 'lucide-react';
-import {Checkbox} from '@/components/ui/checkbox.jsx';
-import {Button} from '@/components/ui/button.jsx';
+import { Trash2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox.jsx";
+import { Button } from "@/components/ui/button.jsx";
 
-const TodoItem = ({id, text, completed}) => {
+const TodoItem = ({ id, text, completed, updateTodo }) => {
   return (
-      <div
-          className="flex items-center justify-between rounded-lg border bg-card p-4 mt-7">
-        <div className="flex items-center gap-3">
-          <Checkbox id={id}/>
+    <div className="flex items-center justify-between rounded-lg border bg-card p-4 mt-7">
+      <div className="flex items-center gap-3">
+        <Checkbox id={id} onClick={updateTodo} />
 
-          <label
-              htmlFor={id}
-              className="text-sm font-medium leading-none"
+        <label htmlFor={id} className="text-sm font-medium leading-none">
+          <span
+            className={`text-sm ${
+              completed ? "text-muted-foreground line-through" : ""
+            }`}
           >
-              <span
-                  className={`text-sm ${
-                      completed ? 'text-muted-foreground line-through' : ''
-                  }`}
-              >
-                {text}
-            </span>
-          </label>
-
-        </div>
-
-        <Button variant="ghost" size="icon">
-          <Trash2 className="h-4 w-4"/>
-        </Button>
+            {text}
+          </span>
+        </label>
       </div>
+
+      <Button variant="ghost" size="icon">
+        <Trash2 className="h-4 w-4" />
+      </Button>
+    </div>
   );
 };
 
