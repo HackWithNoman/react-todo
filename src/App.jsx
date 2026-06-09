@@ -9,10 +9,10 @@ function App() {
     { id: 2, text: "Build project", completed: true },
   ]);
 
-  const [input, setInput] = useState();
+  const [input, setInput] = useState("");
 
   const addTodo = () => {
-    if (!input.trim()) return;
+    if (!input || !input.trim()) return;
 
     setTodos((prev) => [
       { id: Date.now(), text: input, completed: false },
@@ -22,8 +22,12 @@ function App() {
     setInput("");
   };
 
-  const updateTodo = (text) => {
-    console.log(text);
+  const toggleTodo = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id == id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
   };
 
   return (
@@ -45,13 +49,13 @@ function App() {
         {/* Todo Item */}
 
         <div>
-          {todos.map((todo, id) => (
+          {todos.map((todo) => (
             <TodoItem
-              id={id}
-              key={id}
+              id={todo.id}
+              key={todo.id}
               text={todo.text}
               completed={todo.completed}
-              updateTodo={updateTodo(todo.text)}
+              toggleTodo={toggleTodo}
             />
           ))}
         </div>
