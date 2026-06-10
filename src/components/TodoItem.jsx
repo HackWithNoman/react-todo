@@ -2,7 +2,7 @@ import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox.jsx";
 import { Button } from "@/components/ui/button.jsx";
 
-const TodoItem = ({ id, text, completed, toggleTodo }) => {
+const TodoItem = ({ id, text, completed, toggleTodo, deleteTodo }) => {
   return (
     <div className="flex items-center justify-between rounded-lg border bg-card p-4 mt-7">
       <div className="flex items-center gap-3">
@@ -19,7 +19,7 @@ const TodoItem = ({ id, text, completed, toggleTodo }) => {
         </label>
       </div>
 
-      <Button variant="ghost" size="icon">
+      <Button variant="ghost" size="icon" onClick={() => deleteTodo(id)}>
         <Trash2 className="h-4 w-4" />
       </Button>
     </div>

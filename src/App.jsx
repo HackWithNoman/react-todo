@@ -30,6 +30,10 @@ function App() {
     );
   };
 
+  const deleteTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id != id));
+  };
+
   return (
     <main className="max-w-lg mx-auto px-4">
       <div className="mt-6">
@@ -56,6 +60,7 @@ function App() {
               text={todo.text}
               completed={todo.completed}
               toggleTodo={toggleTodo}
+              deleteTodo={deleteTodo}
             />
           ))}
         </div>
