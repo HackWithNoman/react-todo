@@ -1,6 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox.jsx";
 import { Button } from "@/components/ui/button.jsx";
+import { Edit } from "lucide-react";
 
 const TodoItem = ({ id, text, completed, toggleTodo, deleteTodo }) => {
   return (
@@ -19,9 +20,15 @@ const TodoItem = ({ id, text, completed, toggleTodo, deleteTodo }) => {
         </label>
       </div>
 
-      <Button variant="ghost" size="icon" onClick={() => deleteTodo(id)}>
-        <Trash2 className="h-4 w-4" />
-      </Button>
+      <div>
+        <Button variant="ghost" size="icon" >
+          <Edit className="h-4 w-4" />
+        </Button>
+
+        <Button variant="ghost" size="icon" onClick={() => deleteTodo(id)}>
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      </div>
     </div>
   );
 };

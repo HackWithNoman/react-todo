@@ -10,6 +10,8 @@ function App() {
   ]);
 
   const [input, setInput] = useState("");
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState("");
 
   const addTodo = () => {
     if (!input || !input.trim()) return;
@@ -32,6 +34,20 @@ function App() {
 
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id != id));
+  };
+
+  const startEdit = (todo) => {
+    setEditingId(todo.id);
+    setEditText(todo.text);
+  };
+
+  const saveEdit = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text: editText } : todo)),
+    );
+
+    setEditingId(null);
+    setEditText("");
   };
 
   return (
@@ -61,6 +77,11 @@ function App() {
               completed={todo.completed}
               toggleTodo={toggleTodo}
               deleteTodo={deleteTodo}
+              startEdit={startEdit}
+              editingId={editingId}
+              editText={editText}
+              setEditText={setEditText}
+              saveEdit={saveEdit}
             />
           ))}
         </div>
