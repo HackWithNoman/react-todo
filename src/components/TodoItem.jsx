@@ -1,15 +1,32 @@
-import { Trash2 } from "lucide-react";
+import { Trash2, Edit } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox.jsx";
 import { Button } from "@/components/ui/button.jsx";
-import { Edit } from "lucide-react";
+import { Input } from "@/components/ui/input.jsx";
 
-const TodoItem = ({ id, text, completed, toggleTodo, deleteTodo }) => {
+const TodoItem = ({
+  id,
+  text,
+  completed,
+  toggleTodo,
+  deleteTodo,
+  editingId,
+  editText,
+  setEditText,
+  startEdit,
+  saveEdit,
+}) => {
+  const isEditing = editingId === id;
+
   return (
     <div className="flex items-center justify-between rounded-lg border bg-card p-4 mt-7">
-      <div className="flex items-center gap-3">
-        <Checkbox checked={completed} onCheckedChange={() => toggleTodo(id)} />
+      <div className="flex items-center gap-3 flex-1">
+        <Checkbox
+          checked={completed}
+          onCheckedChange={() => toggleTodo(id)}
+        />
 
-        <label htmlFor={id} className="text-sm font-medium leading-none">
+        {/* NORMAL MODE */}
+        {!isEditing ? (
           <span
             className={`text-sm ${
               completed ? "text-muted-foreground line-through" : ""
@@ -17,15 +34,42 @@ const TodoItem = ({ id, text, completed, toggleTodo, deleteTodo }) => {
           >
             {text}
           </span>
-        </label>
+        ) : (
+          /* EDIT MODE */
+          <Input
+            value={editText}
+            onChange={(e) => setEditText(e.target.value)}
+            className="h-8"
+          />
+        )}
       </div>
 
-      <div>
-        <Button variant="ghost" size="icon" >
-          <Edit className="h-4 w-4" />
-        </Button>
+      <div className="flex gap-2">
+        {/* EDIT / SAVE BUTTON */}
+        {!isEditing ? (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => startEdit({ id, text })}
+          >
+            <Edit className="h-4 w-4" />
+          </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => saveEdit(id)}
+          >
+            Save
+          </Button>
+        )}
 
-        <Button variant="ghost" size="icon" onClick={() => deleteTodo(id)}>
+        {/* DELETE BUTTON */}
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => deleteTodo(id)}
+        >
           <Trash2 className="h-4 w-4" />
         </Button>
       </div>

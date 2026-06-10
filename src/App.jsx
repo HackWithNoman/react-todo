@@ -8,8 +8,8 @@ function App() {
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build project", completed: true },
   ]);
-
   const [input, setInput] = useState("");
+
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState("");
 
